@@ -1,0 +1,67 @@
+@import '../bower_components/bootstrap/less/bootstrap.less';
+@import '../bower_components/font-awesome/less/font-awesome.less';
+
+@icon-font-path: '../bower_components/bootstrap/fonts/';
+@fa-font-path: '../bower_components/font-awesome/fonts';
+
+/**
+ * App-wide Styles
+ */
+
+
+
+ 
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+  body {
+    //padding-top: 50px; //if no navbar
+    font-family: 'Cantarell', sans-serif;//default, without emoji
+    
+  }
+  
+  .top-buffer { margin-top:20px; }
+  .bottom-buffer { margin-bottom:20px; }
+  
+.mouth-btn {
+  //.button-variant(@custom-color, @custom-color-bg, @custom-color-border);
+  .button-variant(black, #ffcc22, white);
+}
+  
+  
+// injector
+@import 'main/main.less';
+@import 'registrationSuccess/registrationSuccess.less';
+@import 'resetSuccess/resetSuccess.less';
+@import 'signup/signup.less';
+@import 'yc/yc.less';
+@import '../components/footer/footer.less';
+@import '../components/modal/modal.less';
+// endinjector
+
+
+//TODO: put it to a separate cluss, boostrap navbar customization:
+
+.navbar-custom {
+    background-color:#ffcc22;
+    color:#000000;
+    border-radius:0;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color:transparent;
+}
+.navbar-custom .navbar-brand {
+    color:#9293A0;
+}
+
+//end of navbar customization	

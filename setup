@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Follow along to set up your remote server where your Angular FullStack app will live.
+# See the full in-depth tutorial at: http://erictsang.co/deploy-and-serve-yeoman-angular-fullstack
+
+# There are TWO steps.
+
+# STEP 1: -- Set the path to your git repo on this remote server 
+repo=/root/repos/angular-fullstack
+
+# STEP 2: Set your working directory, where you want your angular-fullstack app to live
+dir=/root/angular-fullstack
+
+##### DO NOT EDIT BELOW THIS LINE #####
+
+# 1. Install PM2
+npm install -g pm2
+
+# 2. Make a directory to store your git repository and initialize bare
+mkdir -p $repo && cd $_
+git init --bare
+
+# 3. Clone a working directory where your app will be served
+cd ~
+git clone file://$repo
+
+# 4. Set up post-receive hook so git can automatically deploy to your working directory
+# - you'll need to create/edit a file at /root/repos/yeoman-angular-fullstack/hooks/post-receive
+
+# 4b. copy and paste the 6 lines below into /root/repos/yeoman-angular-fullstack/hooks/post-receive
+echo "Writing post-receive hook at " + $repo/hooks/post-receive
+cat > $repo/hooks/post-receive << EOF
+#!/bin/sh
+git --work-tree=$dir --git-dir=$repo checkout -f
+cd $dir
+npm install
+/usr/local/bin/pm2 kill
+NODE_ENV=production /usr/local/bin/pm2 start $dir/server/app.js
+EOF
+
+# 4c. add execute privilege to /root/repos/angular-fullstack/hooks/post-receive
+chmod +x $repo/hooks/post-receive
